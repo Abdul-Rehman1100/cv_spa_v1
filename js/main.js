@@ -113,3 +113,130 @@ if (copyButton) {
 }
 
 document.querySelector("#current-year").textContent = new Date().getFullYear();
+
+const appointmentForm = document.querySelector("#appointment-form");
+const appointmentFeedback = document.querySelector("#appointment-feedback");
+const savedRequests = document.querySelector("#saved-requests");
+const appointmentDate = document.querySelector("#appointment-date");
+const appointmentStorageKey = "abdulRehmanAppointmentRequests";
+
+function localDateString(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function readAppointmentRequests() {
+  try {
+    const stored = localStorage.getItem(appointmentStorageKey);
+    if (stored === null) return [];
+    const requests = JSON.parse(stored);
+    if (!Array.isArray(requests)) {
+      throw new Error("Saved appointment requests are not in the expected format.");
+    }
+    return requests;
+  } catch (error) {
+    console.error("Could not read saved appointment requests.", error);
+    throw error;
+  }
+}
+
+function createEmailDraftLink(request) {
+  const subject = `Appointment request from ${request.name}`;
+  const body = [
+    "Hello Abdul-Rehman,",
+    "",
+    "I would like to arrange a conversation.",
+    `Name: ${request.name}`,
+    `Email: ${request.email}`,
+    `Preferred date: ${request.date}`,
+    `Preferred time: ${request.time}`,
+    `Details: ${request.message || "Not provided"}`,
+  ].join("\n");
+  const link = document.createElement("a");
+  link.className = "email-request-link";
+  link.href = `mailto:abdulrehmanmujahid1100@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  link.textContent = "Email request";
+  link.setAttribute("aria-label", `Email appointment request for ${request.date} at ${request.time}`);
+  return link;
+}
+
+function renderAppointmentRequests() {
+  const requests = readAppointmentRequests();
+  savedRequests.replaceChildren();
+
+  requests.forEach((request) => {
+    const row = document.createElement("div");
+    row.className = "saved-request";
+    const summary = document.createElement("p");
+    summary.textContent = `Saved request: ${request.date} at ${request.time} · ${request.name}`;
+    const actions = document.createElement("div");
+    actions.className = "saved-request-actions";
+    actions.append(createEmailDraftLink(request));
+
+    const removeButton = document.createElement("button");
+    removeButton.className = "remove-request";
+    removeButton.type = "button";
+    removeButton.dataset.removeRequest = request.id;
+    removeButton.textContent = "Remove";
+    actions.append(removeButton);
+    row.append(summary, actions);
+    savedRequests.append(row);
+  });
+}
+
+if (appointmentForm && appointmentFeedback && savedRequests && appointmentDate) {
+  appointmentDate.min = localDateString(new Date());
+  try {
+    renderAppointmentRequests();
+  } catch (error) {
+    appointmentFeedback.classList.add("error");
+    appointmentFeedback.textContent = "Could not load appointment requests saved in this browser.";
+  }
+
+  appointmentForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    appointmentFeedback.classList.remove("error");
+    const formData = new FormData(appointmentForm);
+    const request = {
+      id: crypto.randomUUID(),
+      name: formData.get("name").trim(),
+      email: formData.get("email").trim(),
+      date: formData.get("date"),
+      time: formData.get("time"),
+      message: formData.get("message").trim(),
+    };
+
+    try {
+      const requests = readAppointmentRequests();
+      requests.push(request);
+      localStorage.setItem(appointmentStorageKey, JSON.stringify(requests));
+      renderAppointmentRequests();
+      appointmentForm.reset();
+      appointmentDate.min = localDateString(new Date());
+      appointmentFeedback.textContent = "Saved in this browser. Select “Email request” below to send it to Abdul-Rehman.";
+    } catch (error) {
+      console.error("Could not save the appointment request.", error);
+      appointmentFeedback.classList.add("error");
+      appointmentFeedback.textContent = "Could not save this request in browser storage. Check your browser settings and try again.";
+    }
+  });
+
+  savedRequests.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-remove-request]");
+    if (!button) return;
+    appointmentFeedback.classList.remove("error");
+    try {
+      const requests = readAppointmentRequests();
+      const remaining = requests.filter((request) => request.id !== button.dataset.removeRequest);
+      localStorage.setItem(appointmentStorageKey, JSON.stringify(remaining));
+      renderAppointmentRequests();
+      appointmentFeedback.textContent = "Saved request removed from this browser.";
+    } catch (error) {
+      console.error("Could not remove the saved appointment request.", error);
+      appointmentFeedback.classList.add("error");
+      appointmentFeedback.textContent = "Could not remove this request from browser storage. Please try again.";
+    }
+  });
+}

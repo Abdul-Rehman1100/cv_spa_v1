@@ -48,11 +48,11 @@
             <a class="text-link light-link" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <div class="hero-art" aria-label="Abstract orbital illustration with connected nodes and a timetable grid">
+        <div class="hero-art" aria-label="Portrait of Abdul-Rehman framed by an orbital illustration">
           <div class="art-caption mono">IDEAS → SYSTEMS → USEFUL THINGS</div>
           <div class="orbit orbit-one"></div>
           <div class="orbit orbit-two"></div>
-          <div class="orbit-core"><span>AR</span><i></i></div>
+          <div class="orbit-core"><img src="images/me.webp" alt="Abdul-Rehman"><i></i></div>
           <span class="orbit-node node-top"></span>
           <span class="orbit-node node-right"></span>
           <span class="orbit-node node-bottom"></span>
@@ -248,6 +248,39 @@
             <div><p class="mono">BASED IN</p><span>Lahore, Pakistan</span></div>
             <div><p class="mono">GITHUB / PORTFOLIO HANDLE</p><span>abdul-rehman1100</span><small>URL not provided</small></div>
           </div>
+        </div>
+        <div class="appointment-panel">
+          <div class="appointment-intro">
+            <p class="mono">LET’S FIND A TIME</p>
+            <h3>Book a conversation.</h3>
+            <p>Share a few details and a time that suits you. Your request is saved in this browser only; use the email link after saving to send it to me.</p>
+            <p class="appointment-privacy">Your details are not uploaded or sent automatically. Saved requests stay on this device until removed or browser data is cleared.</p>
+          </div>
+          <form class="appointment-form" id="appointment-form">
+            <div class="form-field">
+              <label for="appointment-name">Your name</label>
+              <input id="appointment-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+            </div>
+            <div class="form-field">
+              <label for="appointment-email">Email address</label>
+              <input id="appointment-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+            </div>
+            <div class="form-field">
+              <label for="appointment-date">Preferred date</label>
+              <input id="appointment-date" name="date" type="date" required>
+            </div>
+            <div class="form-field">
+              <label for="appointment-time">Preferred time</label>
+              <input id="appointment-time" name="time" type="time" required>
+            </div>
+            <div class="form-field form-field-wide">
+              <label for="appointment-message">What would you like to discuss? <span>(optional)</span></label>
+              <textarea id="appointment-message" name="message" rows="3" maxlength="1000"></textarea>
+            </div>
+            <button class="button button-coral appointment-submit" type="submit">Save appointment request <span aria-hidden="true">↗</span></button>
+            <p class="appointment-feedback" id="appointment-feedback" role="status" aria-live="polite"></p>
+          </form>
+          <div class="saved-requests" id="saved-requests" aria-live="polite"></div>
         </div>
         <footer class="site-footer"><a class="footer-brand" href="#top">Abdul-Rehman<span>.</span></a><span>Lahore, Pakistan</span><span>© <span id="current-year"></span></span><a class="back-top mono" href="#top">BACK TO TOP ↑</a></footer>
       </section>
