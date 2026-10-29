@@ -71,6 +71,34 @@ if ("IntersectionObserver" in window) {
   document.querySelectorAll("[data-reveal]").forEach((element) => element.classList.add("is-visible"));
 }
 
+const hoverEnabled = window.matchMedia("(hover: hover) and (pointer: fine)");
+document.querySelectorAll(".about-accordion").forEach((accordion) => {
+  const summary = accordion.querySelector("summary");
+  let openedByHover = false;
+
+  accordion.addEventListener("pointerenter", (event) => {
+    if (!hoverEnabled.matches || event.pointerType === "touch" || accordion.open) return;
+    accordion.open = true;
+    openedByHover = true;
+  });
+
+  accordion.addEventListener("pointerleave", () => {
+    if (!openedByHover) return;
+    accordion.open = false;
+    openedByHover = false;
+  });
+
+  summary.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (openedByHover && accordion.open) {
+      openedByHover = false;
+      return;
+    }
+    accordion.open = !accordion.open;
+    openedByHover = false;
+  });
+});
+
 document.querySelectorAll("[data-cv-download]").forEach((button) => {
   if (!cvUrl) {
     button.disabled = true;
