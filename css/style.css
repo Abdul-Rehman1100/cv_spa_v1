@@ -235,7 +235,7 @@ h1, h2, h3, p { margin-top: 0; }
 .form-field textarea { min-height: 95px; resize: vertical; }
 .form-field input:focus, .form-field textarea:focus { border-color: var(--coral-soft); outline: 2px solid rgba(255,117,143,.32); outline-offset: 1px; }
 .form-field input::-webkit-calendar-picker-indicator { cursor: pointer; filter: invert(.8) sepia(.5) saturate(2) hue-rotate(295deg); }
-.appointment-submit { width: fit-content; min-height: 2.8rem; border: 0; cursor: pointer; }
+.appointment-submit { width: fit-content; min-width: 230px; min-height: 2.8rem; gap: 1rem; padding-inline: 1.1rem; border: 0; white-space: nowrap; cursor: pointer; }
 .appointment-feedback { grid-column: 1 / -1; min-height: 1.2em; margin: -.35rem 0 0; color: var(--coral-soft); font-size: .72rem; line-height: 1.55; }
 .appointment-feedback.error { color: #ffabb7; }
 .saved-requests { grid-column: 1 / -1; display: grid; gap: .75rem; }
