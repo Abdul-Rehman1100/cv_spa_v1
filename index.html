@@ -16,6 +16,7 @@
     <meta name="twitter:title" content="Abdul-Rehman | BSCS Student & Web Developer in Lahore">
     <meta name="twitter:description" content="BS Computer Science student at Qarshi University, Lahore, building practical web projects that solve everyday problems.">
     <title>Abdul-Rehman | BSCS Student &amp; Web Developer in Lahore</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -86,7 +87,10 @@
         <a href="#skills">Skills</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
-        <button class="nav-cv" type="button" data-cv-download aria-describedby="cv-note">Download CV</button>
+        <span class="nav-cv-wrap">
+          <button class="nav-cv" type="button" data-cv-download aria-describedby="cv-download-note" aria-expanded="false">Download CV</button>
+          <span class="cv-download-card" id="cv-download-note" role="status">CV download is under construction. Please check back soon.</span>
+        </span>
       </nav>
     </header>
 
@@ -257,12 +261,12 @@
       <section class="toolkit section-pad" id="skills" aria-labelledby="skills-title">
         <div class="section-kicker mono"><span>04</span> / THE TOOLKIT</div>
         <div class="toolkit-heading">
-          <h2 class="display-heading" id="skills-title">Tools for the<br><em>next useful thing.</em></h2>
+          <h2 class="display-heading" id="skills-title">Tools &amp; <em>Technologies</em></h2>
           <p>No scores, no made-up percentages. Just the tools I use and the ones I’m learning.</p>
         </div>
         <div class="skill-groups">
           <div class="skill-group" data-reveal>
-            <p class="mono">01 — PROGRAMMING & WEB</p>
+            <p class="mono">01 — PROGRAMMING LANGUAGES</p>
             <ul class="skill-list"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Java</li><li>C++</li><li>SQL</li></ul>
           </div>
           <div class="skill-group" data-reveal>
@@ -273,12 +277,28 @@
             <p class="mono">03 — CURRENTLY LEARNING</p>
             <ul class="skill-list"><li>Bootstrap</li><li>Tailwind CSS</li><li>DSA in C++</li><li>AI tools</li></ul>
           </div>
+          <div class="skill-group main-subjects-group" data-reveal>
+            <p class="mono">04 — MAIN SUBJECTS</p>
+            <ul class="skill-list"><li>OOP</li><li>Data Structures</li><li>Operating Systems</li><li>Algorithms</li><li>SQL Databases</li></ul>
+          </div>
         </div>
-        <p class="skill-note mono">ALSO STUDIED: OOP · DATA STRUCTURES · OPERATING SYSTEMS · ALGORITHMS · SQL DATABASES</p>
+      </section>
+
+      <section class="learning-strip" aria-label="Current learning journey">
+        <div class="section-kicker mono"><span>05</span> / ALWAYS IN PROGRESS</div>
+        <div class="learning-content">
+          <h2>Still learning.<br><em>Always building.</em></h2>
+          <div class="learning-steps">
+            <div><span class="step-index mono">01</span><p>Strengthening DSA in C++</p></div>
+            <div><span class="step-index mono">02</span><p>Learning Bootstrap & Tailwind CSS</p></div>
+            <div><span class="step-index mono">03</span><p>Exploring AI tools</p></div>
+            <div><span class="step-index mono">04</span><p>Building projects for real problems</p></div>
+          </div>
+        </div>
       </section>
 
       <section class="education section-pad" id="education" aria-labelledby="education-title">
-        <div class="section-kicker mono"><span>05</span> / THE LEARNING SO FAR</div>
+        <div class="section-kicker mono"><span>06</span> / THE LEARNING SO FAR</div>
         <div class="education-layout">
           <div class="education-intro">
             <h2 class="display-heading" id="education-title">Built on a<br><em>curious mind.</em></h2>
@@ -297,19 +317,6 @@
               <span class="edu-marker" aria-hidden="true"></span><p class="mono edu-status">COMPLETED</p>
               <h3>Secondary Education</h3><p>10th Class <span>·</span> Central Model High School, Lahore</p>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="learning-strip" aria-label="Current learning journey">
-        <div class="section-kicker mono"><span>06</span> / ALWAYS IN PROGRESS</div>
-        <div class="learning-content">
-          <h2>Still learning.<br><em>Always building.</em></h2>
-          <div class="learning-steps">
-            <div><span class="step-index mono">01</span><p>Strengthening DSA in C++</p></div>
-            <div><span class="step-index mono">02</span><p>Learning Bootstrap & Tailwind CSS</p></div>
-            <div><span class="step-index mono">03</span><p>Exploring AI tools</p></div>
-            <div><span class="step-index mono">04</span><p>Building projects for real problems</p></div>
           </div>
         </div>
       </section>
@@ -365,9 +372,22 @@
           </form>
           <div class="saved-requests" id="saved-requests" aria-live="polite"></div>
         </div>
-        <footer class="site-footer"><a class="footer-brand" href="#top">Abdul-Rehman<span>.</span></a><span>Lahore, Pakistan</span><span>© <span id="current-year"></span></span><a class="back-top mono" href="#top">BACK TO TOP ↑</a></footer>
+        <footer class="site-footer">
+          <a class="footer-brand" href="#top">Abdul-Rehman<span>.</span></a>
+          <span class="footer-location">Lahore, Pakistan</span>
+          <span class="footer-year">© <span id="current-year"></span></span>
+          <nav class="footer-links" aria-label="Footer links">
+            <a href="https://github.com/Abdul-Rehman1100" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/abdul-rahman-mujahid" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="#live-sites">Live Sites</a>
+            <a href="#projects">Projects</a>
+          </nav>
+        </footer>
       </section>
     </main>
     <div class="toast" role="status" aria-live="polite"></div>
+    <button class="floating-back-top" type="button" aria-label="Back to top">
+      <span aria-hidden="true">↑</span>
+    </button>
   </body>
 </html>

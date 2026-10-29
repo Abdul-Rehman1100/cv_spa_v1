@@ -43,6 +43,11 @@ window.addEventListener("scroll", updateScrollUI, { passive: true });
 window.addEventListener("resize", updateScrollUI);
 updateScrollUI();
 
+const backToTopButton = document.querySelector(".floating-back-top");
+backToTopButton.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 const sections = document.querySelectorAll("main section[id]");
 const navLinks = document.querySelectorAll('.primary-nav a[href^="#"]');
 if ("IntersectionObserver" in window) {
@@ -101,10 +106,26 @@ document.querySelectorAll(".about-accordion").forEach((accordion) => {
 
 document.querySelectorAll("[data-cv-download]").forEach((button) => {
   if (!cvUrl) {
-    button.disabled = true;
-    button.title = "Add a real CV PDF URL in js/main.js to enable this action.";
+    const wrapper = button.closest(".nav-cv-wrap");
+    wrapper.classList.add("has-message");
+    button.addEventListener("click", () => {
+      const isOpen = wrapper.classList.toggle("is-open");
+      button.setAttribute("aria-expanded", String(isOpen));
+    });
+    document.addEventListener("click", (event) => {
+      if (wrapper.contains(event.target)) return;
+      wrapper.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+    });
+    button.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      wrapper.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+      button.blur();
+    });
     return;
   }
+  button.removeAttribute("aria-describedby");
   button.addEventListener("click", () => {
     const link = document.createElement("a");
     link.href = cvUrl;
